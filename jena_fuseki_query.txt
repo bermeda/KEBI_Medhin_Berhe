@@ -1,0 +1,45 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ex: <http://www.semanticweb.org/kebi-exam/2024-2025/medhin.Berhe#>
+PREFIX bpaas: <http://ikm-group.ch/archimeo/bpaas#> 
+PREFIX mod:  <http://fhnw.ch/modelingEnvironment/ModelOntology#>
+PREFIX lo: <http://fhnw.ch/modelingEnvironment/LanguageOntology#>
+
+#Query to get only the preferred meals 
+SELECT DISTINCT ?mealName WHERE {
+  mod:CreatePersonalizedMenu_b7fa7303-5684-48d4-9c8d-03572c576922 lo:isVegetarian ?checkVegetarian. #check isVegetarian value
+  mod:CreatePersonalizedMenu_b7fa7303-5684-48d4-9c8d-03572c576922 lo:isLactoseIntolerant   ?checkLactose.  # check isLactoseIntolerant value
+  mod:CreatePersonalizedMenu_b7fa7303-5684-48d4-9c8d-03572c576922 lo:isGlutenIntolerant ?checkGluten.   # check isGlutenIntolerant value
+  mod:CreatePersonalizedMenu_b7fa7303-5684-48d4-9c8d-03572c576922 lo:preferredCaloriesLevel ?caloriesLevel.  # check preferredCaloriesLevel value
+
+    ?meal rdf:type ex:Meal ;
+          ex:hasName ?mealName ;
+    	  ex:MealIsVegetarian ?isVegetarian;
+          ex:MealHasGluten ?hasGluten;
+          ex:MealHasLactose ?hasLactose.
+    
+    # Lactose filter
+    FILTER (?checkLactose = false || NOT EXISTS {
+        ?meal rdf:type ex:LactoseMeal .
+    })
+    
+    # Gluten filter
+    FILTER (?checkGluten = false || NOT EXISTS {
+        ?meal rdf:type ex:GlutenMeal.
+    })
+    
+    # Vegetarian filter
+    FILTER (?checkVegetarian = false || NOT EXISTS {
+        ?meal rdf:type ex:NoVegMeal.
+    })
+    
+    # Calories filter
+    FILTER (
+        ?caloriesLevel = "" || ?caloriesLevel = "High" ||
+        (
+            (?caloriesLevel = "Low" && EXISTS { ?meal rdf:type ex:LowCaloriesMeal }) ||
+            (?caloriesLevel = "Medium" && NOT EXISTS { ?meal rdf:type ex:HighCaloriesMeal })
+        )
+    )
+
+}
