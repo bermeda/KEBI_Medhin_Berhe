@@ -1,0 +1,255 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ex:    <http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+
+#Shape to add costraints to the Ingredient class.
+ex:IngredientShape
+    a sh:NodeShape ;
+    sh:targetClass ex:Ingredient ; # Applies to all ingredients
+    sh:property [              
+        sh:path ex:hasName ;  #add constraints to hasName property
+        sh:datatype xsd:string ; 
+        sh:minCount 1 ;     
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [              
+        sh:path ex:hasGluten ;  #add constraints to hasGluten property
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;     
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [              
+        sh:path ex:hasLactose ;  #add constraints to hasLactose property
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;     
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [              
+        sh:path ex:isVegetarian ;  #add constraints to isVeegetarian property
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;     
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [              
+        sh:path ex:isInMeal ;  #add constraints to isInMeal property
+        sh:class ex:Meal ;
+        sh:severity sh:Warning ;
+    ].
+
+#Shape to add costraints to the GlutenIngredient class.
+ex:GlutenIngredientShape
+    a sh:NodeShape ;
+    sh:targetClass ex:GlutenIngredient ; # Applies to all gluten ingredients       
+    sh:property [              
+        sh:path ex:hasGluten ;  #add constraints to hasGluten property
+        sh:hasValue true;
+    ].
+
+#Shape to add costraints to the NoGlutenIngredient class.
+ex:NoGlutenIngredientShape
+    a sh:NodeShape ;
+    sh:targetClass ex:NoGlutenIngredient ; # Applies to all non-gluten ingredients       
+    sh:property [              
+        sh:path ex:hasGluten ;  #add constraints to hasGluten property
+        sh:hasValue false;
+    ].
+
+#Shape to add costraints to the LactoseIngredient class.
+ex:LactoseIngredientShape
+    a sh:NodeShape ;
+    sh:targetClass ex:LactoseIngredient ; # Applies to all lactose ingredients       
+    sh:property [              
+        sh:path ex:hasLactose ;  #add constraints to hasLactose property
+        sh:hasValue true;
+    ].
+
+#Shape to add costraints to the NoLactoseIngredient class.
+ex:NoLactoseIngredientShape
+    a sh:NodeShape ;
+    sh:targetClass ex:NoLactoseIngredient ; # Applies to all non-lactose ingredients       
+    sh:property [              
+        sh:path ex:hasLactose ;  #add constraints to hasLactose property
+        sh:hasValue false;
+    ].
+
+#Shape to add costraints to the VegIngredient class.
+ex:VegIngredientShape
+    a sh:NodeShape ;
+    sh:targetClass ex:VegIngredient ; # Applies to all Vegetarian ingredients       
+    sh:property [              
+        sh:path ex:isVegetarian ;  #add constraints to isVegetarian property
+        sh:hasValue true;
+    ].
+
+#Shape to add costraints to the NoVegIngredient class.
+ex:NoVegIngredientShape
+    a sh:NodeShape ;
+    sh:targetClass ex:NoVegIngredient ; # Applies to all non-vegetarian ingredients       
+    sh:property [              
+        sh:path ex:isVegetarian ;  #add constraints to isVegetarian property
+        sh:hasValue false;
+    ].
+
+#Shape to add constraints to the Meal class.
+ex:MealShape
+    a sh:NodeShape ;
+    sh:targetClass ex:Meal ; # Applies to all meals
+    sh:property [              
+        sh:path ex:hasName ;  # Add constraints to hasName property
+        sh:datatype xsd:string ; 
+        sh:minCount 1 ;     
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [              
+        sh:path ex:MealHasGluten ;  # Add constraints to MealHasGluten property
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;     
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [              
+        sh:path ex:MealHasLactose ;  # Add constraints to MealHasLactose property
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;     
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [              
+        sh:path ex:MealIsVegetarian ;  # Add constraints to MealIsVegetarian property
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;     
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [              
+        sh:path ex:hasCalories ;  # Add constraints to hasCalories property
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;     
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [              
+        sh:path ex:hasIngredients ;  # Add constraints to hasIngredients property
+        sh:class ex:Ingredient ;
+        sh:severity sh:Warning ;
+    ].
+
+#Shape to add constraints to the GlutenMeal class.
+ex:GlutenMealShape
+    a sh:NodeShape ;
+    sh:targetClass ex:GlutenMeal ; # Applies to all gluten meals       
+    sh:property [              
+        sh:path ex:MealHasGluten ;  # Add constraints to MealHasGluten property
+        sh:hasValue true ;
+    ].
+
+#Shape to add constraints to the NoGlutenMeal class.
+ex:NoGlutenMealShape
+    a sh:NodeShape ;
+    sh:targetClass ex:NoGlutenMeal ; # Applies to all non-gluten meals       
+    sh:property [              
+        sh:path ex:MealHasGluten ;  # Add constraints to MealHasGluten property
+        sh:hasValue false ;
+    ];
+    sh:property [              
+        sh:path ex:hasIngredients ;  # Ensures all ingredients in a NoGlutenMeal are gluten-free
+        sh:node [
+            sh:path ex:hasGluten ;
+            sh:hasValue false ;
+        ] ;
+    ].
+
+#Shape to add constraints to the LactoseMeal class.
+ex:LactoseMealShape
+    a sh:NodeShape ;
+    sh:targetClass ex:LactoseMeal ; # Applies to all lactose meals       
+    sh:property [              
+        sh:path ex:MealHasLactose ;  # Add constraints to MealHasLactose property
+        sh:hasValue true ;
+    ].
+
+#Shape to add constraints to the NoLactoseMeal class.
+ex:NoLactoseMealShape
+    a sh:NodeShape ;
+    sh:targetClass ex:NoLactoseMeal ; # Applies to all non-lactose meals       
+    sh:property [              
+        sh:path ex:MealHasLactose ;  # Add constraints to MealHasLactose property
+        sh:hasValue false ;
+    ];
+    sh:property [              
+        sh:path ex:hasIngredients ;  # Ensures all ingredients in a NoLactoseMeal are lactose-free
+        sh:node [
+            sh:path ex:hasLactose ;
+            sh:hasValue false ;
+        ] ;
+    ].
+
+#Shape to add constraints to the VegMeal class.
+ex:VegMealShape
+    a sh:NodeShape ;
+    sh:targetClass ex:VegMeal ; # Applies to all vegetarian meals       
+    sh:property [              
+        sh:path ex:MealIsVegetarian ;  # Add constraints to MealIsVegetarian property
+        sh:hasValue true ;
+    ];
+    sh:property [              
+        sh:path ex:hasIngredients ;  # Ensures all ingredients in a NoGlutenMeal are gluten-free
+        sh:node [
+            sh:path ex:isVegetarian ;
+            sh:hasValue true ;
+        ] ;
+    ].
+
+#Shape to add constraints to the NoVegMeal class.
+ex:NoVegMealShape
+    a sh:NodeShape ;
+    sh:targetClass ex:NoVegMeal ; # Applies to all non-vegetarian meals       
+    sh:property [              
+        sh:path ex:MealIsVegetarian ;  # Add constraints to MealIsVegetarian property
+        sh:hasValue false ;
+    ].
+
+#Shape to add constraints to the LowCaloriesMeal class.
+ex:LowCaloriesMealShape
+    a sh:NodeShape ;
+    sh:targetClass ex:LowCaloriesMeal ; # Applies to all low calories meals       
+    sh:property [              
+        sh:path ex:hasCalories ;  # Add constraints to hasCalories property
+        sh:hasValue "Low" ;
+    ].
+
+#Shape to add constraints to the MediumCaloriesMeal class.
+ex:MediumCaloriesMealShape
+    a sh:NodeShape ;
+    sh:targetClass ex:MediumCaloriesMeal ; # Applies to all medium calories meals       
+    sh:property [              
+        sh:path ex:hasCalories ;  # Add constraints to hasCalories property
+        sh:hasValue "Medium" ;
+    ].
+
+#Shape to add constraints to the HighCaloriesMeal class.
+ex:HighCaloriesMealShape
+    a sh:NodeShape ;
+    sh:targetClass ex:HighCaloriesMeal ; # Applies to all high calories meals       
+    sh:property [              
+        sh:path ex:hasCalories ;  # Add constraints to hasCalories property
+        sh:hasValue "High" ;
+    ].
+
+#Shape to add costraints to the Menu class.
+ex:MenuShape
+    a sh:NodeShape ;
+    sh:targetClass ex:Menu ; # Applies to all personalized menu       
+    sh:property [              
+        sh:path ex:hasMeal ;  # Add constraints to hasMeal property
+        sh:class ex:Meal ;
+        sh:severity sh:Warning ;
+    ].

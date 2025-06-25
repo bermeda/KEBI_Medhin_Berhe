@@ -1,0 +1,3349 @@
+@prefix : <http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrla: <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix medhin: <http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#> .
+
+@base <http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe/> .
+
+
+<http://www.semanticweb.org/kebi-exam/Medhin-Berhe> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+swrla:isRuleEnabled rdf:type owl:AnnotationProperty .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#hasIngredients
+medhin:hasIngredients rdf:type owl:ObjectProperty ;
+                      owl:inverseOf medhin:isInMeal ;
+                      rdfs:domain medhin:Meal ;
+                      rdfs:range medhin:Ingredient .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#hasMeal
+medhin:hasMeal rdf:type owl:ObjectProperty ;
+               rdfs:domain medhin:Menu ;
+               rdfs:range medhin:Meal .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#isInMeal
+medhin:isInMeal rdf:type owl:ObjectProperty ;
+                rdfs:domain medhin:Ingredient ;
+                rdfs:range medhin:Meal .
+
+#################################################################
+#    Data Properties
+#################################################################
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#MealHasGluten
+medhin:MealHasGluten rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf owl:topDataProperty ;
+                     rdfs:domain medhin:Meal ;
+                     rdfs:range xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#MealHasLactose
+medhin:MealHasLactose rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdfs:domain medhin:Meal ;
+                      rdfs:range xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#MealIsVegetarian
+medhin:MealIsVegetarian rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf owl:topDataProperty ;
+                        rdfs:domain medhin:Meal ;
+                        rdfs:range xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#hasCalories
+medhin:hasCalories rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain medhin:Meal ;
+                   rdfs:range xsd:string .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#hasGluten
+medhin:hasGluten rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain medhin:Ingredient ;
+                 rdfs:range xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#hasLactose
+medhin:hasLactose rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain medhin:Ingredient ;
+                  rdfs:range xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#hasName
+medhin:hasName rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain owl:Thing ;
+               rdfs:range xsd:string .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#isVegetarian
+medhin:isVegetarian rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdfs:domain medhin:Ingredient ;
+                    rdfs:range xsd:boolean .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#GlutenIngredient
+medhin:GlutenIngredient rdf:type owl:Class ;
+                        rdfs:subClassOf medhin:Ingredient ;
+                        owl:disjointWith medhin:NoGlutenIngredient .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#GlutenMeal
+medhin:GlutenMeal rdf:type owl:Class ;
+                  rdfs:subClassOf medhin:Meal ;
+                  owl:disjointWith medhin:NoGlutenMeal .
+
+
+
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseIngredient
+medhin:LactoseIngredient rdf:type owl:Class ;
+                         rdfs:subClassOf medhin:Ingredient ;
+                         owl:disjointWith medhin:NoLactoseIngredient .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseMeal
+medhin:LactoseMeal rdf:type owl:Class ;
+                   rdfs:subClassOf medhin:Meal ;
+                   owl:disjointWith medhin:NoLactoseMeal .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LowCaloriesMeal
+medhin:LowCaloriesMeal rdf:type owl:Class ;
+                       rdfs:subClassOf medhin:Meal .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Meal
+medhin:Meal rdf:type owl:Class .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#MediumCaloriesMeal
+medhin:MediumCaloriesMeal rdf:type owl:Class ;
+                          rdfs:subClassOf medhin:Meal .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Menu
+medhin:Menu rdf:type owl:Class .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#NoGlutenIngredient
+medhin:NoGlutenIngredient rdf:type owl:Class ;
+                          rdfs:subClassOf medhin:Ingredient .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#NoGlutenMeal
+medhin:NoGlutenMeal rdf:type owl:Class ;
+                    rdfs:subClassOf medhin:Meal .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#NoLactoseIngredient
+medhin:NoLactoseIngredient rdf:type owl:Class ;
+                           rdfs:subClassOf medhin:Ingredient .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#NoLactoseMeal
+medhin:NoLactoseMeal rdf:type owl:Class ;
+                     rdfs:subClassOf medhin:Meal .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#NoVegIngredient
+medhin:NoVegIngredient rdf:type owl:Class ;
+                       rdfs:subClassOf medhin:Ingredient ;
+                       owl:disjointWith medhin:VegIngredient .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#NoVegMeal
+medhin:NoVegMeal rdf:type owl:Class ;
+                 rdfs:subClassOf medhin:Meal ;
+                 owl:disjointWith medhin:VegMeal .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#VegIngredient
+medhin:VegIngredient rdf:type owl:Class ;
+                     rdfs:subClassOf medhin:Ingredient .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#VegMeal
+medhin:VegMeal rdf:type owl:Class ;
+               rdfs:subClassOf medhin:Meal .
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Apple
+medhin:Apple rdf:type owl:NamedIndividual ,
+                      medhin:Ingredient ,
+                      medhin:NoGlutenIngredient ,
+                      medhin:NoLactoseIngredient ,
+                      medhin:VegIngredient ;
+             medhin:isInMeal medhin:Macedonia ;
+             medhin:hasGluten "false"^^xsd:boolean ;
+             medhin:hasLactose "false"^^xsd:boolean ;
+             medhin:hasName "Apple" ;
+             medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#AranciniAlProsciutto
+medhin:AranciniAlProsciutto rdf:type owl:NamedIndividual ,
+                                     medhin:GlutenMeal ,
+                                     medhin:LactoseMeal ,
+                                     medhin:Meal ,
+                                     medhin:MediumCaloriesMeal ,
+                                     medhin:NoVegMeal ;
+                            medhin:hasIngredients medhin:Bread ,
+                                                   medhin:Flour ,
+                                                   medhin:Ham ,
+                                                   medhin:Mozzarella ,
+                                                   medhin:Rice ,
+                                                   medhin:Salt ,
+                                                   medhin:Water ;
+                            medhin:MealHasGluten "true"^^xsd:boolean ;
+                            medhin:MealHasLactose "true"^^xsd:boolean ;
+                            medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                            medhin:hasCalories "Medium" ;
+                            medhin:hasName "Arancini al prosciutto" .
+
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#AranciniAlRagu
+medhin:AranciniAlRagu rdf:type owl:NamedIndividual ,
+                               medhin:GlutenMeal ,
+                               medhin:HighCaloriesMeal ,
+                               medhin:LactoseMeal ,
+                               medhin:Meal ,
+                               medhin:NoVegMeal ;
+                      medhin:hasIngredients medhin:Beef ,
+                                             medhin:Bread ,
+                                             medhin:Flour ,
+                                             medhin:Mozzarella ,
+                                             medhin:Onion ,
+                                             medhin:Rice ,
+                                             medhin:Salt ,
+                                             medhin:TomatoSauce ,
+                                             medhin:Water ;
+                      medhin:MealHasGluten "true"^^xsd:boolean ;
+                      medhin:MealHasLactose "true"^^xsd:boolean ;
+                      medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                      medhin:hasCalories "High" ;
+                      medhin:hasName "Arancini al ragù" .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#AranciniVegetariani
+medhin:AranciniVegetariani rdf:type owl:NamedIndividual ,
+                                    medhin:GlutenMeal ,
+                                    medhin:LactoseMeal ,
+                                    medhin:Meal ,
+                                    medhin:MediumCaloriesMeal ,
+                                    medhin:VegMeal ;
+                           medhin:hasIngredients medhin:Bread ,
+                                                  medhin:Flour ,
+                                                  medhin:Mozzarella ,
+                                                  medhin:Oil ,
+                                                  medhin:Onion ,
+                                                  medhin:Rice ,
+                                                  medhin:Salt ,
+                                                  medhin:TomatoSauce ,
+                                                  medhin:Water ;
+                           medhin:MealHasGluten "true"^^xsd:boolean ;
+                           medhin:MealHasLactose "true"^^xsd:boolean ;
+                           medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                           medhin:hasCalories "Medium" ;
+                           medhin:hasName "Arancini vegetariani" .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#ArrostoCarne
+medhin:ArrostoCarne rdf:type owl:NamedIndividual ,
+                             medhin:Meal ,
+                             medhin:MediumCaloriesMeal ,
+                             medhin:NoGlutenMeal ,
+                             medhin:NoLactoseMeal ,
+                             medhin:NoVegMeal ;
+                    medhin:hasIngredients medhin:Beef ,
+                                           medhin:Lemon ,
+                                           medhin:Oil ,
+                                           medhin:Rosemary ,
+                                           medhin:Salt ,
+                                           medhin:Sausage ;
+                    medhin:MealHasGluten "false"^^xsd:boolean ;
+                    medhin:MealHasLactose "false"^^xsd:boolean ;
+                    medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                    medhin:hasCalories "Medium" ;
+                    medhin:hasName "Arrosto di carne" .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#ArrostoPesce
+medhin:ArrostoPesce rdf:type owl:NamedIndividual ,
+                             medhin:Meal ,
+                             medhin:MediumCaloriesMeal ,
+                             medhin:NoGlutenMeal ,
+                             medhin:NoLactoseMeal ,
+                             medhin:VegMeal ;
+                    medhin:hasIngredients medhin:Lemon ,
+                                           medhin:Oil ,
+                                           medhin:Rosemary ,
+                                           medhin:Salmon ,
+                                           medhin:Salt ,
+                                           medhin:Seabass ;
+                    medhin:MealHasGluten "false"^^xsd:boolean ;
+                    medhin:MealHasLactose "false"^^xsd:boolean ;
+                    medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                    medhin:hasCalories "Medium" ;
+                    medhin:hasName "Arrosto di pesce" .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Avocado
+medhin:Avocado rdf:type owl:NamedIndividual ,
+                        medhin:Ingredient ,
+                        medhin:NoGlutenIngredient ,
+                        medhin:NoLactoseIngredient ,
+                        medhin:VegIngredient ;
+               medhin:isInMeal medhin:Tartare ;
+               medhin:hasGluten "false"^^xsd:boolean ;
+               medhin:hasLactose "false"^^xsd:boolean ;
+               medhin:hasName "Avocado" ;
+               medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Bacon
+medhin:Bacon rdf:type owl:NamedIndividual ,
+                      medhin:Ingredient ,
+                      medhin:NoGlutenIngredient ,
+                      medhin:NoLactoseIngredient ,
+                      medhin:NoVegIngredient ;
+             medhin:isInMeal medhin:Carbonara ,
+                             medhin:PizzaPatateBacon ;
+             medhin:hasGluten "false"^^xsd:boolean ;
+             medhin:hasLactose "false"^^xsd:boolean ;
+             medhin:hasName "Bacon" ;
+             medhin:isVegetarian "false"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Beef
+medhin:Beef rdf:type owl:NamedIndividual ,
+                    medhin:Ingredient ,
+                    medhin:NoGlutenIngredient ,
+                    medhin:NoLactoseIngredient ,
+                    medhin:NoVegIngredient ;
+           medhin:isInMeal medhin:AranciniAlRagu ,
+                            medhin:ArrostoCarne ,
+                            medhin:GrigliataCarne ,
+                            medhin:MelanzaneRipiene ,
+                            medhin:RavioliRagu ,
+                            medhin:ScaloppineFunghi ;
+           medhin:hasGluten "false"^^xsd:boolean ;
+           medhin:hasLactose "false"^^xsd:boolean ;
+           medhin:hasName "Beef" ;
+           medhin:isVegetarian "false"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Bread
+medhin:Bread rdf:type owl:NamedIndividual ,
+                      medhin:GlutenIngredient ,
+                      medhin:Ingredient ,
+                      medhin:NoLactoseIngredient ,
+                      medhin:VegIngredient ;
+             medhin:isInMeal medhin:AranciniAlProsciutto ,
+                             medhin:AranciniAlRagu ,
+                             medhin:AranciniVegetariani ,
+                             medhin:MelanzaneRipiene ;
+             medhin:hasGluten "true"^^xsd:boolean ;
+             medhin:hasLactose "false"^^xsd:boolean ;
+             medhin:hasName "Bread" ;
+             medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Carbonara
+medhin:Carbonara rdf:type owl:NamedIndividual ,
+                          medhin:GlutenMeal ,
+                          medhin:HighCaloriesMeal ,
+                          medhin:LactoseMeal ,
+                          medhin:Meal ,
+                          medhin:NoVegMeal ;
+                 medhin:hasIngredients medhin:Bacon ,
+                                        medhin:Egg ,
+                                        medhin:Pasta ,
+                                        medhin:Pecorino ;
+                 medhin:MealHasGluten "true"^^xsd:boolean ;
+                 medhin:MealHasLactose "true"^^xsd:boolean ;
+                 medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                 medhin:hasCalories "High" ;
+                 medhin:hasName "Carbonara" .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Carrot
+medhin:Carrot rdf:type owl:NamedIndividual ,
+                      medhin:Ingredient ,
+                      medhin:NoGlutenIngredient ,
+                      medhin:NoLactoseIngredient ,
+                      medhin:VegIngredient ;
+             medhin:isInMeal medhin:GnocchiSugoPapera ,
+                             medhin:Insalata ,
+                             medhin:InsalataRussa ,
+                             medhin:PizzaVegetariana ;
+             medhin:hasGluten "false"^^xsd:boolean ;
+             medhin:hasLactose "false"^^xsd:boolean ;
+             medhin:hasName "Carrot" ;
+             medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Champignon
+medhin:Champignon rdf:type owl:NamedIndividual ,
+                           medhin:Ingredient ,
+                           medhin:NoGlutenIngredient ,
+                           medhin:NoLactoseIngredient ,
+                           medhin:VegIngredient ;
+                  medhin:isInMeal medhin:PizzaBoscaiola ,
+                                  medhin:PizzaNorcina ,
+                                  medhin:PizzaVegetariana ,
+                                  medhin:RisottoSalsicciaFunghi ,
+                                  medhin:ScaloppineFunghi ;
+                  medhin:hasGluten "false"^^xsd:boolean ;
+                  medhin:hasLactose "false"^^xsd:boolean ;
+                  medhin:hasName "Champignon" ;
+                  medhin:isVegetarian "true"^^xsd:boolean .
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Clams
+medhin:Clams rdf:type owl:NamedIndividual ,
+                      medhin:Ingredient ,
+                      medhin:NoGlutenIngredient ,
+                      medhin:NoLactoseIngredient ,
+                      medhin:VegIngredient ;
+             medhin:isInMeal medhin:PastaVongole ,
+                             medhin:RisottoVongole ;
+             medhin:hasGluten "false"^^xsd:boolean ;
+             medhin:hasLactose "false"^^xsd:boolean ;
+             medhin:hasName "Clams" ;
+             medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Coffee
+medhin:Coffee rdf:type owl:NamedIndividual ,
+                       medhin:Ingredient ,
+                       medhin:NoGlutenIngredient ,
+                       medhin:NoLactoseIngredient ,
+                       medhin:VegIngredient ;
+              medhin:isInMeal medhin:Tiramisu ;
+              medhin:hasGluten "false"^^xsd:boolean ;
+              medhin:hasLactose "false"^^xsd:boolean ;
+              medhin:hasName "Coffee" ;
+              medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Duck
+medhin:Duck rdf:type owl:NamedIndividual ,
+                     medhin:Ingredient ,
+                     medhin:NoGlutenIngredient ,
+                     medhin:NoLactoseIngredient ,
+                     medhin:NoVegIngredient ;
+            medhin:isInMeal medhin:GnocchiSugoPapera ;
+            medhin:hasGluten "false"^^xsd:boolean ;
+            medhin:hasLactose "false"^^xsd:boolean ;
+            medhin:hasName "Duck" ;
+            medhin:isVegetarian "false"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Egg
+medhin:Egg rdf:type owl:NamedIndividual ,
+                    medhin:Ingredient ,
+                    medhin:NoGlutenIngredient ,
+                    medhin:NoLactoseIngredient ,
+                    medhin:VegIngredient ;
+           medhin:isInMeal medhin:Carbonara ,
+                           medhin:GnocchiSugoPapera ,
+                           medhin:InsalataRussa ,
+                           medhin:PizzaNorcina ,
+                           medhin:RavioliRagu ,
+                           medhin:RavioliVegetariani ;
+           medhin:hasGluten "false"^^xsd:boolean ;
+           medhin:hasLactose "false"^^xsd:boolean ;
+           medhin:hasName "Egg" ;
+           medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Eggplant
+medhin:Eggplant rdf:type owl:NamedIndividual ,
+                         medhin:Ingredient ,
+                         medhin:NoGlutenIngredient ,
+                         medhin:NoLactoseIngredient ,
+                         medhin:VegIngredient ;
+                medhin:isInMeal medhin:MelanzaneRipiene ,
+                                medhin:Parmigiana ,
+                                medhin:PizzaMelanzaneProsciutto ,
+                                medhin:PizzaVegetariana ,
+                                medhin:VerdureGrigliate ;
+                medhin:hasGluten "false"^^xsd:boolean ;
+                medhin:hasLactose "false"^^xsd:boolean ;
+                medhin:hasName "Eggplant" ;
+                medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Flour
+medhin:Flour rdf:type owl:NamedIndividual ,
+                      medhin:GlutenIngredient ,
+                      medhin:Ingredient ,
+                      medhin:NoLactoseIngredient ,
+                      medhin:VegIngredient ;
+             medhin:isInMeal medhin:AranciniAlProsciutto ,
+                             medhin:AranciniAlRagu ,
+                             medhin:AranciniVegetariani ,
+                             medhin:GnocchiSugoPapera ,
+                             medhin:PizzaBoscaiola ,
+                             medhin:PizzaMargherita ,
+                             medhin:PizzaMelanzaneProsciutto ,
+                             medhin:PizzaNorcina ,
+                             medhin:PizzaPatateBacon ,
+                             medhin:PizzaProsciutto ,
+                             medhin:PizzaSalmone ,
+                             medhin:PizzaVegetariana ,
+                             medhin:PizzaZucchineSalsiccia ,
+                             medhin:RavioliRagu ,
+                             medhin:RavioliVegetariani ,
+                             medhin:ScaloppineFunghi ;
+             medhin:hasGluten "true"^^xsd:boolean ;
+             medhin:hasLactose "false"^^xsd:boolean ;
+             medhin:hasName "Flour" ;
+             medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#GnocchiSugoPapera
+medhin:GnocchiSugoPapera rdf:type owl:NamedIndividual ,
+                                  medhin:GlutenMeal ,
+                                  medhin:HighCaloriesMeal ,
+                                  medhin:LactoseMeal ,
+                                  medhin:Meal ,
+                                  medhin:NoVegMeal ;
+                         medhin:hasIngredients medhin:Carrot ,
+                                                 medhin:Duck ,
+                                                 medhin:Egg ,
+                                                 medhin:Flour ,
+                                                 medhin:Oil ,
+                                                 medhin:Onion ,
+                                                 medhin:Parmeasan ,
+                                                 medhin:Potato ,
+                                                 medhin:Salt ,
+                                                 medhin:TomatoSauce ;
+                         medhin:MealHasGluten "true"^^xsd:boolean ;
+                         medhin:MealHasLactose "true"^^xsd:boolean ;
+                         medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                         medhin:hasCalories "High" ;
+                         medhin:hasName "Gnocchi al sugo di papera" .
+
+
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#GrigliataCarne
+medhin:GrigliataCarne rdf:type owl:NamedIndividual ,
+                               medhin:LowCaloriesMeal ,
+                               medhin:Meal ,
+                               medhin:NoGlutenMeal ,
+                               medhin:NoLactoseMeal ,
+                               medhin:NoVegMeal ;
+                      medhin:hasIngredients medhin:Beef ,
+                                              medhin:Lemon ,
+                                              medhin:Oil ,
+                                              medhin:Rosemary ,
+                                              medhin:Salt ,
+                                              medhin:Sausage ;
+                      medhin:MealHasGluten "false"^^xsd:boolean ;
+                      medhin:MealHasLactose "false"^^xsd:boolean ;
+                      medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                      medhin:hasCalories "Low" ;
+                      medhin:hasName "Grigliata di carne" .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#GrigliataPesce
+medhin:GrigliataPesce rdf:type owl:NamedIndividual ,
+                               medhin:LowCaloriesMeal ,
+                               medhin:Meal ,
+                               medhin:NoGlutenMeal ,
+                               medhin:NoLactoseMeal ,
+                               medhin:VegMeal ;
+                      medhin:hasIngredients medhin:Lemon ,
+                                              medhin:Oil ,
+                                              medhin:Rosemary ,
+                                              medhin:Salmon ,
+                                              medhin:Salt ,
+                                              medhin:Seabass ;
+                      medhin:MealHasGluten "false"^^xsd:boolean ;
+                      medhin:MealHasLactose "false"^^xsd:boolean ;
+                      medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                      medhin:hasCalories "Low" ;
+                      medhin:hasName "Grigliata di pesce" .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Ham
+medhin:Ham rdf:type owl:NamedIndividual ,
+                    medhin:Ingredient ,
+                    medhin:NoGlutenIngredient ,
+                    medhin:NoLactoseIngredient ,
+                    medhin:NoVegIngredient ;
+           medhin:isInMeal medhin:AranciniAlProsciutto ,
+                           medhin:PizzaMelanzaneProsciutto ,
+                           medhin:PizzaProsciutto ,
+                           medhin:Tagliere ;
+           medhin:hasGluten "false"^^xsd:boolean ;
+           medhin:hasLactose "false"^^xsd:boolean ;
+           medhin:hasName "Ham" ;
+           medhin:isVegetarian "false"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Insalata
+medhin:Insalata rdf:type owl:NamedIndividual ,
+                         medhin:LowCaloriesMeal ,
+                         medhin:Meal ,
+                         medhin:NoGlutenMeal ,
+                         medhin:NoLactoseMeal ,
+                         medhin:VegMeal ;
+                medhin:hasIngredients medhin:Carrot ,
+                                        medhin:Lettuce ,
+                                        medhin:Oil ,
+                                        medhin:Salt ,
+                                        medhin:Tomato ;
+                medhin:MealHasGluten "false"^^xsd:boolean ;
+                medhin:MealHasLactose "false"^^xsd:boolean ;
+                medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                medhin:hasCalories "Low" ;
+                medhin:hasName "Insalata" .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#InsalataRussa
+medhin:InsalataRussa rdf:type owl:NamedIndividual ,
+                              medhin:HighCaloriesMeal ,
+                              medhin:Meal ,
+                              medhin:NoGlutenMeal ,
+                              medhin:NoLactoseMeal ,
+                              medhin:VegMeal ;
+                     medhin:hasIngredients medhin:Carrot ,
+                                             medhin:Egg ,
+                                             medhin:Mayonnaise ,
+                                             medhin:Oil ,
+                                             medhin:Peas ,
+                                             medhin:Potato ,
+                                             medhin:Salt ;
+                     medhin:MealHasGluten "false"^^xsd:boolean ;
+                     medhin:MealHasLactose "false"^^xsd:boolean ;
+                     medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                     medhin:hasCalories "High" ;
+                     medhin:hasName "Insalata russa" .
+
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Ketchup
+medhin:Ketchup rdf:type owl:NamedIndividual ,
+                        medhin:Ingredient ,
+                        medhin:NoGlutenIngredient ,
+                        medhin:NoLactoseIngredient ,
+                        medhin:VegIngredient ;
+               medhin:isInMeal medhin:PatatineFritte ;
+               medhin:hasGluten "false"^^xsd:boolean ;
+               medhin:hasLactose "false"^^xsd:boolean ;
+               medhin:hasName "Ketchup" ;
+               medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenFreeNoVegHighMenu
+medhin:LactoseFreeGlutenFreeNoVegHighMenu rdf:type owl:NamedIndividual ,
+                                                       medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenFreeNoVegLowMenu
+medhin:LactoseFreeGlutenFreeNoVegLowMenu rdf:type owl:NamedIndividual ,
+                                                      medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenFreeNoVegMediumMenu
+medhin:LactoseFreeGlutenFreeNoVegMediumMenu rdf:type owl:NamedIndividual ,
+                                                         medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenFreeVegHighMenu
+medhin:LactoseFreeGlutenFreeVegHighMenu rdf:type owl:NamedIndividual ,
+                                                     medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenFreeVegLowMenu
+medhin:LactoseFreeGlutenFreeVegLowMenu rdf:type owl:NamedIndividual ,
+                                                    medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenFreeVegMediumMenu
+medhin:LactoseFreeGlutenFreeVegMediumMenu rdf:type owl:NamedIndividual ,
+                                                       medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenNoVegHighMenu
+medhin:LactoseFreeGlutenNoVegHighMenu rdf:type owl:NamedIndividual ,
+                                                   medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenNoVegLowMenu
+medhin:LactoseFreeGlutenNoVegLowMenu rdf:type owl:NamedIndividual ,
+                                                  medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenNoVegMediumMenu
+medhin:LactoseFreeGlutenNoVegMediumMenu rdf:type owl:NamedIndividual ,
+                                                     medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenVegHighMenu
+medhin:LactoseFreeGlutenVegHighMenu rdf:type owl:NamedIndividual ,
+                                                 medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenVegLowMenu
+medhin:LactoseFreeGlutenVegLowMenu rdf:type owl:NamedIndividual ,
+                                                medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseFreeGlutenVegMediumMenu
+medhin:LactoseFreeGlutenVegMediumMenu rdf:type owl:NamedIndividual ,
+                                                     medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenFreeNoVegHighMenu
+medhin:LactoseGlutenFreeNoVegHighMenu rdf:type owl:NamedIndividual ,
+                                                     medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenFreeNoVegLowMenu
+medhin:LactoseGlutenFreeNoVegLowMenu rdf:type owl:NamedIndividual ,
+                                                    medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenFreeNoVegMediumMenu
+medhin:LactoseGlutenFreeNoVegMediumMenu rdf:type owl:NamedIndividual ,
+                                                       medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenFreeVegHighMenu
+medhin:LactoseGlutenFreeVegHighMenu rdf:type owl:NamedIndividual ,
+                                                   medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenFreeVegLowMenu
+medhin:LactoseGlutenFreeVegLowMenu rdf:type owl:NamedIndividual ,
+                                                  medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenFreeVegMediumMenu
+medhin:LactoseGlutenFreeVegMediumMenu rdf:type owl:NamedIndividual ,
+                                                       medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenNoVegHighMenu
+medhin:LactoseGlutenNoVegHighMenu rdf:type owl:NamedIndividual ,
+                                                   medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenNoVegLowMenu
+medhin:LactoseGlutenNoVegLowMenu rdf:type owl:NamedIndividual ,
+                                                  medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenNoVegMediumMenu
+medhin:LactoseGlutenNoVegMediumMenu rdf:type owl:NamedIndividual ,
+                                                     medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenVegHighMenu
+medhin:LactoseGlutenVegHighMenu rdf:type owl:NamedIndividual ,
+                                                 medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenVegLowMenu
+medhin:LactoseGlutenVegLowMenu rdf:type owl:NamedIndividual ,
+                                                medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#LactoseGlutenVegMediumMenu
+medhin:LactoseGlutenVegMediumMenu rdf:type owl:NamedIndividual ,
+                                                     medhin:Menu .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Ladyfinger
+medhin:Ladyfinger rdf:type owl:NamedIndividual ,
+                           medhin:GlutenIngredient ,
+                           medhin:Ingredient ,
+                           medhin:NoLactoseIngredient ,
+                           medhin:VegIngredient ;
+                  medhin:isInMeal medhin:Tiramisu ;
+                  medhin:hasGluten "true"^^xsd:boolean ;
+                  medhin:hasLactose "false"^^xsd:boolean ;
+                  medhin:hasName "Ladyfinger" ;
+                  medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Lemon
+medhin:Lemon rdf:type owl:NamedIndividual ,
+                        medhin:Ingredient ,
+                        medhin:NoGlutenIngredient ,
+                        medhin:NoLactoseIngredient ,
+                        medhin:VegIngredient ;
+               medhin:isInMeal medhin:ArrostoCarne ,
+                                 medhin:ArrostoPesce ,
+                                 medhin:GrigliataCarne ,
+                                 medhin:GrigliataPesce ,
+                                 medhin:Macedonia ,
+                                 medhin:Tartare ;
+               medhin:hasGluten "false"^^xsd:boolean ;
+               medhin:hasLactose "false"^^xsd:boolean ;
+               medhin:hasName "Lemon" ;
+               medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Lettuce
+medhin:Lettuce rdf:type owl:NamedIndividual ,
+                          medhin:Ingredient ,
+                          medhin:NoGlutenIngredient ,
+                          medhin:NoLactoseIngredient ,
+                          medhin:VegIngredient ;
+                 medhin:isInMeal medhin:Insalata ;
+                 medhin:hasGluten "false"^^xsd:boolean ;
+                 medhin:hasLactose "false"^^xsd:boolean ;
+                 medhin:hasName "Lettuce" ;
+                 medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Macedonia
+medhin:Macedonia rdf:type owl:NamedIndividual ,
+                            medhin:LowCaloriesMeal ,
+                            medhin:Meal ,
+                            medhin:NoGlutenMeal ,
+                            medhin:NoLactoseMeal ,
+                            medhin:VegMeal ;
+                   medhin:hasIngredients medhin:Apple ,
+                                           medhin:Lemon ,
+                                           medhin:Peach ,
+                                           medhin:Strawberry ,
+                                           medhin:Sugar ;
+                   medhin:MealHasGluten "false"^^xsd:boolean ;
+                   medhin:MealHasLactose "false"^^xsd:boolean ;
+                   medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                   medhin:hasCalories "Low" ;
+                   medhin:hasName "Macedonia" .
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Mascarpone
+medhin:Mascarpone rdf:type owl:NamedIndividual ,
+                             medhin:Ingredient ,
+                             medhin:LactoseIngredient ,
+                             medhin:NoGlutenIngredient ,
+                             medhin:VegIngredient ;
+                    medhin:isInMeal medhin:Tiramisu ;
+                    medhin:hasGluten "false"^^xsd:boolean ;
+                    medhin:hasLactose "true"^^xsd:boolean ;
+                    medhin:hasName "Mascarpone" ;
+                    medhin:isVegetarian "true"^^xsd:boolean .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Mayonnaise
+medhin:Mayonnaise rdf:type owl:NamedIndividual ,
+                             medhin:Ingredient ,
+                             medhin:NoGlutenIngredient ,
+                             medhin:NoLactoseIngredient ,
+                             medhin:VegIngredient ;
+                    medhin:isInMeal medhin:InsalataRussa ,
+                                      medhin:PatatineFritte ;
+                    medhin:hasGluten "false"^^xsd:boolean ;
+                    medhin:hasLactose "false"^^xsd:boolean ;
+                    medhin:hasName "Mayonnaise" ;
+                    medhin:isVegetarian "true"^^xsd:boolean .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#MelanzaneRipiene
+medhin:MelanzaneRipiene rdf:type owl:NamedIndividual ,
+                                   medhin:GlutenMeal ,
+                                   medhin:HighCaloriesMeal ,
+                                   medhin:LactoseMeal ,
+                                   medhin:Meal ,
+                                   medhin:NoVegMeal ;
+                          medhin:hasIngredients medhin:Beef ,
+                                                  medhin:Bread ,
+                                                  medhin:Eggplant ,
+                                                  medhin:Oil ,
+                                                  medhin:Onion ,
+                                                  medhin:Parmeasan ,
+                                                  medhin:Salt ,
+                                                  medhin:TomatoSauce ;
+                          medhin:MealHasGluten "true"^^xsd:boolean ;
+                          medhin:MealHasLactose "true"^^xsd:boolean ;
+                          medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                          medhin:hasCalories "High" ;
+                          medhin:hasName "Melanzane ripiene" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Mozzarella
+medhin:Mozzarella rdf:type owl:NamedIndividual ,
+                             medhin:Ingredient ,
+                             medhin:LactoseIngredient ,
+                             medhin:NoGlutenIngredient ,
+                             medhin:VegIngredient ;
+                    medhin:isInMeal medhin:AranciniAlProsciutto ,
+                                      medhin:AranciniAlRagu ,
+                                      medhin:AranciniVegetariani ,
+                                      medhin:Parmigiana ,
+                                      medhin:PizzaBoscaiola ,
+                                      medhin:PizzaMargherita ,
+                                      medhin:PizzaMelanzaneProsciutto ,
+                                      medhin:PizzaNorcina ,
+                                      medhin:PizzaPatateBacon ,
+                                      medhin:PizzaProsciutto ,
+                                      medhin:PizzaSalmone ,
+                                      medhin:PizzaVegetariana ,
+                                      medhin:PizzaZucchineSalsiccia ,
+                                      medhin:Tagliere ;
+                    medhin:hasGluten "false"^^xsd:boolean ;
+                    medhin:hasLactose "true"^^xsd:boolean ;
+                    medhin:hasName "Mozzarella" ;
+                    medhin:isVegetarian "true"^^xsd:boolean .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Oil
+medhin:Oil rdf:type owl:NamedIndividual ,
+                      medhin:Ingredient ,
+                      medhin:NoGlutenIngredient ,
+                      medhin:NoLactoseIngredient ,
+                      medhin:VegIngredient ;
+             medhin:isInMeal medhin:AranciniVegetariani ,
+                               medhin:ArrostoCarne ,
+                               medhin:ArrostoPesce ,
+                               medhin:GnocchiSugoPapera ,
+                               medhin:GrigliataCarne ,
+                               medhin:GrigliataPesce ,
+                               medhin:Insalata ,
+                               medhin:InsalataRussa ,
+                               medhin:MelanzaneRipiene ,
+                               medhin:Parmigiana ,
+                               medhin:PastaSalmonePomodoro ,
+                               medhin:PastaVongole ,
+                               medhin:PatateForno ,
+                               medhin:PatatineFritte ,
+                               medhin:PizzaBoscaiola ,
+                               medhin:PizzaMargherita ,
+                               medhin:PizzaMelanzaneProsciutto ,
+                               medhin:PizzaNorcina ,
+                               medhin:PizzaPatateBacon ,
+                               medhin:PizzaProsciutto ,
+                               medhin:PizzaSalmone ,
+                               medhin:PizzaVegetariana ,
+                               medhin:PizzaZucchineSalsiccia ,
+                               medhin:RavioliRagu ,
+                               medhin:RavioliVegetariani ,
+                               medhin:RisottoSalsicciaFunghi ,
+                               medhin:RisottoVongole ,
+                               medhin:ScaloppineFunghi ,
+                               medhin:VerdureGrigliate ;
+             medhin:hasGluten "false"^^xsd:boolean ;
+             medhin:hasLactose "false"^^xsd:boolean ;
+             medhin:hasName "Oil" ;
+             medhin:isVegetarian "true"^^xsd:boolean .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Onion
+medhin:Onion rdf:type owl:NamedIndividual ,
+                        medhin:Ingredient ,
+                        medhin:NoGlutenIngredient ,
+                        medhin:NoLactoseIngredient ,
+                        medhin:VegIngredient ;
+               medhin:isInMeal medhin:AranciniAlRagu ,
+                                 medhin:AranciniVegetariani ,
+                                 medhin:GnocchiSugoPapera ,
+                                 medhin:MelanzaneRipiene ,
+                                 medhin:Parmigiana ,
+                                 medhin:PizzaVegetariana ,
+                                 medhin:RavioliRagu ,
+                                 medhin:RavioliVegetariani ,
+                                 medhin:RisottoSalsicciaFunghi ;
+               medhin:hasGluten "false"^^xsd:boolean ;
+               medhin:hasLactose "false"^^xsd:boolean ;
+               medhin:hasName "Onion" ;
+               medhin:isVegetarian "true"^^xsd:boolean .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Parmeasan
+medhin:Parmeasan rdf:type owl:NamedIndividual ,
+                            medhin:Ingredient ,
+                            medhin:LactoseIngredient ,
+                            medhin:NoGlutenIngredient ,
+                            medhin:VegIngredient ;
+                   medhin:isInMeal medhin:GnocchiSugoPapera ,
+                                     medhin:MelanzaneRipiene ,
+                                     medhin:Parmigiana ,
+                                     medhin:Tagliere ;
+                   medhin:hasGluten "false"^^xsd:boolean ;
+                   medhin:hasLactose "true"^^xsd:boolean ;
+                   medhin:hasName "Parmeasan" ;
+                   medhin:isVegetarian "true"^^xsd:boolean .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Parmigiana
+medhin:Parmigiana rdf:type owl:NamedIndividual ,
+                             medhin:HighCaloriesMeal ,
+                             medhin:LactoseMeal ,
+                             medhin:Meal ,
+                             medhin:NoGlutenMeal ,
+                             medhin:VegMeal ;
+                    medhin:hasIngredients medhin:Eggplant ,
+                                            medhin:Mozzarella ,
+                                            medhin:Oil ,
+                                            medhin:Onion ,
+                                            medhin:Parmeasan ,
+                                            medhin:Salt ,
+                                            medhin:TomatoSauce ;
+                    medhin:MealHasGluten "false"^^xsd:boolean ;
+                    medhin:MealHasLactose "true"^^xsd:boolean ;
+                    medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                    medhin:hasCalories "High" ;
+                    medhin:hasName "Parmigiana" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Pasta
+medhin:Pasta rdf:type owl:NamedIndividual ,
+                        medhin:GlutenIngredient ,
+                        medhin:Ingredient ,
+                        medhin:NoLactoseIngredient ,
+                        medhin:VegIngredient ;
+               medhin:isInMeal medhin:Carbonara ,
+                                 medhin:PastaSalmonePomodoro ,
+                                 medhin:PastaVongole ;
+               medhin:hasGluten "true"^^xsd:boolean ;
+               medhin:hasLactose "false"^^xsd:boolean ;
+               medhin:hasName "Pasta" ;
+               medhin:isVegetarian "true"^^xsd:boolean .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PastaSalmonePomodoro
+medhin:PastaSalmonePomodoro rdf:type owl:NamedIndividual ,
+                                       medhin:GlutenMeal ,
+                                       medhin:LowCaloriesMeal ,
+                                       medhin:Meal ,
+                                       medhin:NoLactoseMeal ,
+                                       medhin:VegMeal ;
+                              medhin:hasIngredients medhin:Oil ,
+                                                      medhin:Pasta ,
+                                                      medhin:Salmon ,
+                                                      medhin:Salt ,
+                                                      medhin:TomatoSauce ;
+                              medhin:MealHasGluten "true"^^xsd:boolean ;
+                              medhin:MealHasLactose "false"^^xsd:boolean ;
+                              medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                              medhin:hasCalories "Low" ;
+                              medhin:hasName "Pasta salmone e pomodoro" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PastaVongole
+medhin:PastaVongole rdf:type owl:NamedIndividual ,
+                               medhin:GlutenMeal ,
+                               medhin:LowCaloriesMeal ,
+                               medhin:Meal ,
+                               medhin:NoLactoseMeal ,
+                               medhin:VegMeal ;
+                      medhin:hasIngredients medhin:Clams ,
+                                              medhin:Oil ,
+                                              medhin:Pasta ,
+                                              medhin:Salt ;
+                      medhin:MealHasGluten "true"^^xsd:boolean ;
+                      medhin:MealHasLactose "false"^^xsd:boolean ;
+                      medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                      medhin:hasCalories "Low" ;
+                      medhin:hasName "Pasta alle vongole" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PatateForno
+medhin:PatateForno rdf:type owl:NamedIndividual ,
+                              medhin:Meal ,
+                              medhin:MediumCaloriesMeal ,
+                              medhin:NoGlutenMeal ,
+                              medhin:NoLactoseMeal ,
+                              medhin:VegMeal ;
+                     medhin:hasIngredients medhin:Oil ,
+                                             medhin:Potato ,
+                                             medhin:Rosemary ,
+                                             medhin:Salt ;
+                     medhin:MealHasGluten "false"^^xsd:boolean ;
+                     medhin:MealHasLactose "false"^^xsd:boolean ;
+                     medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                     medhin:hasCalories "Medium" ;
+                     medhin:hasName "Patate al forno" .
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PatatineFritte
+medhin:PatatineFritte rdf:type owl:NamedIndividual ,
+                                 medhin:HighCaloriesMeal ,
+                                 medhin:Meal ,
+                                 medhin:NoGlutenMeal ,
+                                 medhin:NoLactoseMeal ,
+                                 medhin:VegMeal ;
+                        medhin:hasIngredients medhin:Ketchup ,
+                                                medhin:Mayonnaise ,
+                                                medhin:Oil ,
+                                                medhin:Potato ,
+                                                medhin:Salt ;
+                        medhin:MealHasGluten "false"^^xsd:boolean ;
+                        medhin:MealHasLactose "false"^^xsd:boolean ;
+                        medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                        medhin:hasCalories "High" ;
+                        medhin:hasName "Patatine fritte" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Peach
+medhin:Peach rdf:type owl:NamedIndividual ,
+                        medhin:Ingredient ,
+                        medhin:NoGlutenIngredient ,
+                        medhin:NoLactoseIngredient ,
+                        medhin:VegIngredient ;
+               medhin:isInMeal medhin:Macedonia ;
+               medhin:hasGluten "false"^^xsd:boolean ;
+               medhin:hasLactose "false"^^xsd:boolean ;
+               medhin:hasName "Peach" ;
+               medhin:isVegetarian "true"^^xsd:boolean .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Peas
+medhin:Peas rdf:type owl:NamedIndividual ,
+                       medhin:Ingredient ,
+                       medhin:NoGlutenIngredient ,
+                       medhin:NoLactoseIngredient ,
+                       medhin:VegIngredient ;
+              medhin:isInMeal medhin:InsalataRussa ;
+              medhin:hasGluten "false"^^xsd:boolean ;
+              medhin:hasLactose "false"^^xsd:boolean ;
+              medhin:hasName "Peas" ;
+              medhin:isVegetarian "true"^^xsd:boolean .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#Pecorino
+medhin:Pecorino rdf:type owl:NamedIndividual ,
+                           medhin:Ingredient ,
+                           medhin:LactoseIngredient ,
+                           medhin:NoGlutenIngredient ,
+                           medhin:VegIngredient ;
+                  medhin:isInMeal medhin:Carbonara ,
+                                    medhin:RavioliRagu ,
+                                    medhin:RavioliVegetariani ,
+                                    medhin:Tagliere ;
+                  medhin:hasGluten "false"^^xsd:boolean ;
+                  medhin:hasLactose "true"^^xsd:boolean ;
+                  medhin:hasName "Pecorino" ;
+                  medhin:isVegetarian "true"^^xsd:boolean .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PizzaBoscaiola
+medhin:PizzaBoscaiola rdf:type owl:NamedIndividual ,
+                                 medhin:GlutenMeal ,
+                                 medhin:HighCaloriesMeal ,
+                                 medhin:LactoseMeal ,
+                                 medhin:Meal ,
+                                 medhin:NoVegMeal ;
+                        medhin:hasIngredients medhin:Champignon ,
+                                                medhin:Flour ,
+                                                medhin:Mozzarella ,
+                                                medhin:Oil ,
+                                                medhin:Salt ,
+                                                medhin:Sausage ,
+                                                medhin:Water ;
+                        medhin:MealHasGluten "true"^^xsd:boolean ;
+                        medhin:MealHasLactose "true"^^xsd:boolean ;
+                        medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                        medhin:hasCalories "High" ;
+                        medhin:hasName "Pizza boscaiola" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PizzaMargherita
+medhin:PizzaMargherita rdf:type owl:NamedIndividual ,
+                                  medhin:GlutenMeal ,
+                                  medhin:LactoseMeal ,
+                                  medhin:Meal ,
+                                  medhin:MediumCaloriesMeal ,
+                                  medhin:VegMeal ;
+                         medhin:hasIngredients medhin:Flour ,
+                                                 medhin:Mozzarella ,
+                                                 medhin:Oil ,
+                                                 medhin:Salt ,
+                                                 medhin:TomatoSauce ,
+                                                 medhin:Water ;
+                         medhin:MealHasGluten "true"^^xsd:boolean ;
+                         medhin:MealHasLactose "true"^^xsd:boolean ;
+                         medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                         medhin:hasCalories "Medium" ;
+                         medhin:hasName "Pizza margherita" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PizzaMelanzaneProsciutto
+medhin:PizzaMelanzaneProsciutto rdf:type owl:NamedIndividual ,
+                                           medhin:GlutenMeal ,
+                                           medhin:HighCaloriesMeal ,
+                                           medhin:LactoseMeal ,
+                                           medhin:Meal ,
+                                           medhin:NoVegMeal ;
+                                  medhin:hasIngredients medhin:Eggplant ,
+                                                          medhin:Flour ,
+                                                          medhin:Ham ,
+                                                          medhin:Mozzarella ,
+                                                          medhin:Oil ,
+                                                          medhin:Salt ,
+                                                          medhin:TomatoSauce ,
+                                                          medhin:Water ;
+                                  medhin:MealHasGluten "true"^^xsd:boolean ;
+                                  medhin:MealHasLactose "true"^^xsd:boolean ;
+                                  medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                                  medhin:hasCalories "High" ;
+                                  medhin:hasName "Pizza melanzane e prosciutto" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PizzaNorcina
+medhin:PizzaNorcina rdf:type owl:NamedIndividual ,
+                               medhin:GlutenMeal ,
+                               medhin:HighCaloriesMeal ,
+                               medhin:LactoseMeal ,
+                               medhin:Meal ,
+                               medhin:NoVegMeal ;
+                      medhin:hasIngredients medhin:Champignon ,
+                                              medhin:Egg ,
+                                              medhin:Flour ,
+                                              medhin:Mozzarella ,
+                                              medhin:Oil ,
+                                              medhin:Salt ,
+                                              medhin:Sausage ,
+                                              medhin:Truffle ;
+                      medhin:MealHasGluten "true"^^xsd:boolean ;
+                      medhin:MealHasLactose "true"^^xsd:boolean ;
+                      medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                      medhin:hasCalories "High" ;
+                      medhin:hasName "Pizza norcina" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PizzaPatateBacon
+medhin:PizzaPatateBacon rdf:type owl:NamedIndividual ,
+                                   medhin:GlutenMeal ,
+                                   medhin:HighCaloriesMeal ,
+                                   medhin:LactoseMeal ,
+                                   medhin:Meal ,
+                                   medhin:NoVegMeal ;
+                          medhin:hasIngredients medhin:Bacon ,
+                                                  medhin:Flour ,
+                                                  medhin:Mozzarella ,
+                                                  medhin:Oil ,
+                                                  medhin:Potato ,
+                                                  medhin:Salt ,
+                                                  medhin:TomatoSauce ,
+                                                  medhin:Water ;
+                          medhin:MealHasGluten "true"^^xsd:boolean ;
+                          medhin:MealHasLactose "true"^^xsd:boolean ;
+                          medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                          medhin:hasCalories "High" ;
+                          medhin:hasName "Pizza patate e bacon" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PizzaProsciutto
+medhin:PizzaProsciutto rdf:type owl:NamedIndividual ,
+                                  medhin:GlutenMeal ,
+                                  medhin:HighCaloriesMeal ,
+                                  medhin:LactoseMeal ,
+                                  medhin:Meal ,
+                                  medhin:NoVegMeal ;
+                         medhin:hasIngredients medhin:Flour ,
+                                                 medhin:Ham ,
+                                                 medhin:Mozzarella ,
+                                                 medhin:Oil ,
+                                                 medhin:Salt ,
+                                                 medhin:TomatoSauce ,
+                                                 medhin:Water ;
+                         medhin:MealHasGluten "true"^^xsd:boolean ;
+                         medhin:MealHasLactose "true"^^xsd:boolean ;
+                         medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                         medhin:hasCalories "High" ;
+                         medhin:hasName "Pizza al prosciutto" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PizzaSalmone
+medhin:PizzaSalmone rdf:type owl:NamedIndividual ,
+                               medhin:GlutenMeal ,
+                               medhin:LactoseMeal ,
+                               medhin:Meal ,
+                               medhin:MediumCaloriesMeal ,
+                               medhin:VegMeal ;
+                      medhin:hasIngredients medhin:Flour ,
+                                              medhin:Mozzarella ,
+                                              medhin:Oil ,
+                                              medhin:Salmon ,
+                                              medhin:Salt ,
+                                              medhin:Water ;
+                      medhin:MealHasGluten "true"^^xsd:boolean ;
+                      medhin:MealHasLactose "true"^^xsd:boolean ;
+                      medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                      medhin:hasCalories "Medium" ;
+                      medhin:hasName "Pizza salmone" .
+
+
+### http://www.semanticweb.org/kebi-exam/2024-2025/medhin.berhe#PizzaVegetariana
+medhin:PizzaVegetariana rdf:type owl:NamedIndividual ,
+                                   medhin:GlutenMeal ,
+                                   medhin:LactoseMeal ,
+                                   medhin:Meal ,
+                                   medhin:MediumCaloriesMeal ,
+                                   medhin:VegMeal ;
+                          medhin:hasIngredients medhin:Carrot ,
+                                                  medhin:Champignon ,
+                                                  medhin:Eggplant ,
+                                                  medhin:Flour ,
+                                                  medhin:Mozzarella ,
+                                                  medhin:Oil ,
+                                                  medhin:Onion ,
+                                                  medhin:Salt ,
+                                                  medhin:Tomato ,
+                                                  medhin:Water ,
+                                                  medhin:Zucchini ;
+                          medhin:MealHasGluten "true"^^xsd:boolean ;
+                          medhin:MealHasLactose "true"^^xsd:boolean ;
+                          medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                          medhin:hasCalories "Medium" ;
+                          medhin:hasName "Pizza vegetariana" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#PizzaZucchineSalsiccia
+medhin:PizzaZucchineSalsiccia rdf:type owl:NamedIndividual ,
+                                         medhin:GlutenMeal ,
+                                         medhin:HighCaloriesMeal ,
+                                         medhin:LactoseMeal ,
+                                         medhin:Meal ,
+                                         medhin:NoVegMeal ;
+                                medhin:hasIngredients medhin:Flour ,
+                                                        medhin:Mozzarella ,
+                                                        medhin:Oil ,
+                                                        medhin:Salt ,
+                                                        medhin:Sausage ,
+                                                        medhin:Water ,
+                                                        medhin:Zucchini ;
+                                medhin:MealHasGluten "true"^^xsd:boolean ;
+                                medhin:MealHasLactose "true"^^xsd:boolean ;
+                                medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                                medhin:hasCalories "High" ;
+                                medhin:hasName "Pizza zucchine e salsiccia" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Potato
+medhin:Potato rdf:type owl:NamedIndividual ,
+                         medhin:Ingredient ,
+                         medhin:NoGlutenIngredient ,
+                         medhin:NoLactoseIngredient ,
+                         medhin:VegIngredient ;
+                medhin:isInMeal medhin:GnocchiSugoPapera ,
+                                  medhin:InsalataRussa ,
+                                  medhin:PatateForno ,
+                                  medhin:PatatineFritte ,
+                                  medhin:PizzaPatateBacon ;
+                medhin:hasGluten "false"^^xsd:boolean ;
+                medhin:hasLactose "false"^^xsd:boolean ;
+                medhin:hasName "Potato" ;
+                medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#RavioliRagu
+medhin:RavioliRagu rdf:type owl:NamedIndividual ,
+                              medhin:GlutenMeal ,
+                              medhin:HighCaloriesMeal ,
+                              medhin:LactoseMeal ,
+                              medhin:Meal ,
+                              medhin:NoVegMeal ;
+                     medhin:hasIngredients medhin:Beef ,
+                                             medhin:Egg ,
+                                             medhin:Flour ,
+                                             medhin:Oil ,
+                                             medhin:Onion ,
+                                             medhin:Pecorino ,
+                                             medhin:Ricotta ,
+                                             medhin:Salt ,
+                                             medhin:TomatoSauce ;
+                     medhin:MealHasGluten "true"^^xsd:boolean ;
+                     medhin:MealHasLactose "true"^^xsd:boolean ;
+                     medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                     medhin:hasCalories "High" ;
+                     medhin:hasName "Ravioli al ragù" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#RavioliVegetariani
+medhin:RavioliVegetariani rdf:type owl:NamedIndividual ,
+                                     medhin:GlutenMeal ,
+                                     medhin:LactoseMeal ,
+                                     medhin:Meal ,
+                                     medhin:MediumCaloriesMeal ,
+                                     medhin:VegMeal ;
+                            medhin:hasIngredients medhin:Egg ,
+                                                    medhin:Flour ,
+                                                    medhin:Oil ,
+                                                    medhin:Onion ,
+                                                    medhin:Pecorino ,
+                                                    medhin:Ricotta ,
+                                                    medhin:Salt ,
+                                                    medhin:TomatoSauce ;
+                            medhin:MealHasGluten "true"^^xsd:boolean ;
+                            medhin:MealHasLactose "true"^^xsd:boolean ;
+                            medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                            medhin:hasCalories "Medium" ;
+                            medhin:hasName "Ravioli vegetariani" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Rice
+medhin:Rice rdf:type owl:NamedIndividual ,
+                       medhin:Ingredient ,
+                       medhin:NoGlutenIngredient ,
+                       medhin:NoLactoseIngredient ,
+                       medhin:VegIngredient ;
+              medhin:isInMeal medhin:AranciniAlProsciutto ,
+                                medhin:AranciniAlRagu ,
+                                medhin:AranciniVegetariani ,
+                                medhin:RisottoSalsicciaFunghi ,
+                                medhin:RisottoVongole ;
+              medhin:hasGluten "false"^^xsd:boolean ;
+              medhin:hasLactose "false"^^xsd:boolean ;
+              medhin:hasName "Rice" ;
+              medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Ricotta
+medhin:Ricotta rdf:type owl:NamedIndividual ,
+                          medhin:Ingredient ,
+                          medhin:LactoseIngredient ,
+                          medhin:NoGlutenIngredient ,
+                          medhin:VegIngredient ;
+                 medhin:isInMeal medhin:RavioliRagu ,
+                                   medhin:RavioliVegetariani ,
+                                   medhin:Tagliere ;
+                 medhin:hasGluten "false"^^xsd:boolean ;
+                 medhin:hasLactose "true"^^xsd:boolean ;
+                 medhin:hasName "Ricotta" ;
+                 medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#RisottoSalsicciaFunghi
+medhin:RisottoSalsicciaFunghi rdf:type owl:NamedIndividual ,
+                                         medhin:Meal ,
+                                         medhin:MediumCaloriesMeal ,
+                                         medhin:NoGlutenMeal ,
+                                         medhin:NoLactoseMeal ,
+                                         medhin:NoVegMeal ;
+                                medhin:hasIngredients medhin:Champignon ,
+                                                        medhin:Oil ,
+                                                        medhin:Onion ,
+                                                        medhin:Rice ,
+                                                        medhin:Salt ,
+                                                        medhin:Sausage ;
+                                medhin:MealHasGluten "false"^^xsd:boolean ;
+                                medhin:MealHasLactose "false"^^xsd:boolean ;
+                                medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                                medhin:hasCalories "Medium" ;
+                                medhin:hasName "Risotto salsiccia e funghi" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#RisottoVongole
+medhin:RisottoVongole rdf:type owl:NamedIndividual ,
+                                 medhin:LowCaloriesMeal ,
+                                 medhin:Meal ,
+                                 medhin:NoGlutenMeal ,
+                                 medhin:NoLactoseMeal ,
+                                 medhin:VegMeal ;
+                        medhin:hasIngredients medhin:Clams ,
+                                                medhin:Oil ,
+                                                medhin:Rice ,
+                                                medhin:Salt ;
+                        medhin:MealHasGluten "false"^^xsd:boolean ;
+                        medhin:MealHasLactose "false"^^xsd:boolean ;
+                        medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                        medhin:hasCalories "Low" ;
+                        medhin:hasName "Risotto alle vongole" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Rosemary
+medhin:Rosemary rdf:type owl:NamedIndividual ,
+                           medhin:Ingredient ,
+                           medhin:NoGlutenIngredient ,
+                           medhin:NoLactoseIngredient ,
+                           medhin:VegIngredient ;
+                  medhin:isInMeal medhin:ArrostoCarne ,
+                                    medhin:ArrostoPesce ,
+                                    medhin:GrigliataCarne ,
+                                    medhin:GrigliataPesce ,
+                                    medhin:PatateForno ,
+                                    medhin:ScaloppineFunghi ,
+                                    medhin:VerdureGrigliate ;
+                  medhin:hasGluten "false"^^xsd:boolean ;
+                  medhin:hasLactose "false"^^xsd:boolean ;
+                  medhin:hasName "Rosemary" ;
+                  medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Salmon
+medhin:Salmon rdf:type owl:NamedIndividual ,
+                         medhin:Ingredient ,
+                         medhin:NoGlutenIngredient ,
+                         medhin:NoLactoseIngredient ,
+                         medhin:VegIngredient ;
+                medhin:isInMeal medhin:ArrostoPesce ,
+                                  medhin:GrigliataPesce ,
+                                  medhin:PastaSalmonePomodoro ,
+                                  medhin:PizzaSalmone ,
+                                  medhin:Tartare ;
+                medhin:hasGluten "false"^^xsd:boolean ;
+                medhin:hasLactose "false"^^xsd:boolean ;
+                medhin:hasName "Salmon" ;
+                medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Salt
+medhin:Salt rdf:type owl:NamedIndividual ,
+                       medhin:Ingredient ,
+                       medhin:NoGlutenIngredient ,
+                       medhin:NoLactoseIngredient ,
+                       medhin:VegIngredient ;
+              medhin:isInMeal medhin:AranciniAlProsciutto ,
+                                medhin:AranciniAlRagu ,
+                                medhin:AranciniVegetariani ,
+                                medhin:ArrostoCarne ,
+                                medhin:ArrostoPesce ,
+                                medhin:GnocchiSugoPapera ,
+                                medhin:GrigliataCarne ,
+                                medhin:GrigliataPesce ,
+                                medhin:Insalata ,
+                                medhin:InsalataRussa ,
+                                medhin:MelanzaneRipiene ,
+                                medhin:Parmigiana ,
+                                medhin:PastaSalmonePomodoro ,
+                                medhin:PastaVongole ,
+                                medhin:PatateForno ,
+                                medhin:PatatineFritte ,
+                                medhin:PizzaBoscaiola ,
+                                medhin:PizzaMargherita ,
+                                medhin:PizzaMelanzaneProsciutto ,
+                                medhin:PizzaNorcina ,
+                                medhin:PizzaPatateBacon ,
+                                medhin:PizzaProsciutto ,
+                                medhin:PizzaSalmone ,
+                                medhin:PizzaVegetariana ,
+                                medhin:PizzaZucchineSalsiccia ,
+                                medhin:RavioliRagu ,
+                                medhin:RavioliVegetariani ,
+                                medhin:RisottoSalsicciaFunghi ,
+                                medhin:RisottoVongole ,
+                                medhin:ScaloppineFunghi ,
+                                medhin:Tartare ,
+                                medhin:VerdureGrigliate ;
+              medhin:hasGluten "false"^^xsd:boolean ;
+              medhin:hasLactose "false"^^xsd:boolean ;
+              medhin:hasName "Salt" ;
+              medhin:isVegetarian "true"^^xsd:boolean .
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Sausage
+medhin:Sausage rdf:type owl:NamedIndividual ,
+                          medhin:Ingredient ,
+                          medhin:NoGlutenIngredient ,
+                          medhin:NoLactoseIngredient ,
+                          medhin:NoVegIngredient ;
+                 medhin:isInMeal medhin:ArrostoCarne ,
+                                   medhin:GrigliataCarne ,
+                                   medhin:PizzaBoscaiola ,
+                                   medhin:PizzaNorcina ,
+                                   medhin:PizzaZucchineSalsiccia ,
+                                   medhin:RisottoSalsicciaFunghi ;
+                 medhin:hasGluten "false"^^xsd:boolean ;
+                 medhin:hasLactose "false"^^xsd:boolean ;
+                 medhin:hasName "Sausage" ;
+                 medhin:isVegetarian "false"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#ScaloppineFunghi
+medhin:ScaloppineFunghi rdf:type owl:NamedIndividual ,
+                                   medhin:GlutenMeal ,
+                                   medhin:LowCaloriesMeal ,
+                                   medhin:Meal ,
+                                   medhin:NoLactoseMeal ,
+                                   medhin:NoVegMeal ;
+                          medhin:hasIngredients medhin:Beef ,
+                                                  medhin:Champignon ,
+                                                  medhin:Flour ,
+                                                  medhin:Oil ,
+                                                  medhin:Rosemary ,
+                                                  medhin:Salt ;
+                          medhin:MealHasGluten "true"^^xsd:boolean ;
+                          medhin:MealHasLactose "false"^^xsd:boolean ;
+                          medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                          medhin:hasCalories "Low" ;
+                          medhin:hasName "Scaloppine ai funghi" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Seabass
+medhin:Seabass rdf:type owl:NamedIndividual ,
+                          medhin:Ingredient ,
+                          medhin:NoGlutenIngredient ,
+                          medhin:NoLactoseIngredient ,
+                          medhin:VegIngredient ;
+                 medhin:isInMeal medhin:ArrostoPesce ,
+                                   medhin:GrigliataPesce ;
+                 medhin:hasGluten "false"^^xsd:boolean ;
+                 medhin:hasLactose "false"^^xsd:boolean ;
+                 medhin:hasName "Seabass" ;
+                 medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#SparklingWater
+medhin:SparklingWater rdf:type owl:NamedIndividual ,
+                                 medhin:Ingredient ,
+                                 medhin:NoGlutenIngredient ,
+                                 medhin:NoLactoseIngredient ,
+                                 medhin:VegIngredient ;
+                        medhin:hasGluten "false"^^xsd:boolean ;
+                        medhin:hasLactose "false"^^xsd:boolean ;
+                        medhin:hasName "Sparkling water" ;
+                        medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Strawberry
+medhin:Strawberry rdf:type owl:NamedIndividual ,
+                             medhin:Ingredient ,
+                             medhin:NoGlutenIngredient ,
+                             medhin:NoLactoseIngredient ,
+                             medhin:VegIngredient ;
+                    medhin:isInMeal medhin:Macedonia ;
+                    medhin:hasGluten "false"^^xsd:boolean ;
+                    medhin:hasLactose "false"^^xsd:boolean ;
+                    medhin:hasName "Strawberry" ;
+                    medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Sugar
+medhin:Sugar rdf:type owl:NamedIndividual ,
+                        medhin:Ingredient ,
+                        medhin:NoGlutenIngredient ,
+                        medhin:NoLactoseIngredient ,
+                        medhin:VegIngredient ;
+               medhin:isInMeal medhin:Macedonia ;
+               medhin:hasGluten "false"^^xsd:boolean ;
+               medhin:hasLactose "false"^^xsd:boolean ;
+               medhin:hasName "Sugar" ;
+               medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Tagliere
+medhin:Tagliere rdf:type owl:NamedIndividual ,
+                           medhin:HighCaloriesMeal ,
+                           medhin:LactoseMeal ,
+                           medhin:Meal ,
+                           medhin:NoGlutenMeal ,
+                           medhin:NoVegMeal ;
+                  medhin:hasIngredients medhin:Ham ,
+                                          medhin:Mozzarella ,
+                                          medhin:Parmeasan ,
+                                          medhin:Pecorino ,
+                                          medhin:Ricotta ;
+                  medhin:MealHasGluten "false"^^xsd:boolean ;
+                  medhin:MealHasLactose "true"^^xsd:boolean ;
+                  medhin:MealIsVegetarian "false"^^xsd:boolean ;
+                  medhin:hasCalories "High" ;
+                  medhin:hasName "Tagliere" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Tartare
+medhin:Tartare rdf:type owl:NamedIndividual ,
+                          medhin:HighCaloriesMeal ,
+                          medhin:Meal ,
+                          medhin:NoGlutenMeal ,
+                          medhin:NoLactoseMeal ,
+                          medhin:VegMeal ;
+                 medhin:hasIngredients medhin:Avocado ,
+                                         medhin:Lemon ,
+                                         medhin:Salmon ,
+                                         medhin:Salt ,
+                                         medhin:Tomato ;
+                 medhin:MealHasGluten "false"^^xsd:boolean ;
+                 medhin:MealHasLactose "false"^^xsd:boolean ;
+                 medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                 medhin:hasCalories "High" ;
+                 medhin:hasName "Tartare" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Tiramisu
+medhin:Tiramisu rdf:type owl:NamedIndividual ,
+                           medhin:GlutenMeal ,
+                           medhin:HighCaloriesMeal ,
+                           medhin:LactoseMeal ,
+                           medhin:Meal ,
+                           medhin:VegMeal ;
+                  medhin:hasIngredients medhin:Coffee ,
+                                          medhin:Ladyfinger ,
+                                          medhin:Mascarpone ;
+                  medhin:MealHasGluten "true"^^xsd:boolean ;
+                  medhin:MealHasLactose "true"^^xsd:boolean ;
+                  medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                  medhin:hasCalories "High" ;
+                  medhin:hasName "Tiramisù" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Tomato
+medhin:Tomato rdf:type owl:NamedIndividual ,
+                         medhin:Ingredient ,
+                         medhin:NoGlutenIngredient ,
+                         medhin:NoLactoseIngredient ,
+                         medhin:VegIngredient ;
+                medhin:isInMeal medhin:Insalata ,
+                                  medhin:PizzaVegetariana ,
+                                  medhin:Tartare ,
+                                  medhin:VerdureGrigliate ;
+                medhin:hasGluten "false"^^xsd:boolean ;
+                medhin:hasLactose "false"^^xsd:boolean ;
+                medhin:hasName "Tomato" ;
+                medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#TomatoSauce
+medhin:TomatoSauce rdf:type owl:NamedIndividual ,
+                              medhin:Ingredient ,
+                              medhin:NoGlutenIngredient ,
+                              medhin:NoLactoseIngredient ,
+                              medhin:VegIngredient ;
+                     medhin:isInMeal medhin:AranciniAlRagu ,
+                                       medhin:AranciniVegetariani ,
+                                       medhin:GnocchiSugoPapera ,
+                                       medhin:MelanzaneRipiene ,
+                                       medhin:Parmigiana ,
+                                       medhin:PastaSalmonePomodoro ,
+                                       medhin:PizzaMargherita ,
+                                       medhin:PizzaMelanzaneProsciutto ,
+                                       medhin:PizzaPatateBacon ,
+                                       medhin:PizzaProsciutto ,
+                                       medhin:RavioliRagu ,
+                                       medhin:RavioliVegetariani ;
+                     medhin:hasGluten "false"^^xsd:boolean ;
+                     medhin:hasLactose "false"^^xsd:boolean ;
+                     medhin:hasName "Tomato sauce" ;
+                     medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Truffle
+medhin:Truffle rdf:type owl:NamedIndividual ,
+                          medhin:Ingredient ,
+                          medhin:NoGlutenIngredient ,
+                          medhin:NoLactoseIngredient ,
+                          medhin:VegIngredient ;
+                 medhin:isInMeal medhin:PizzaNorcina ;
+                 medhin:hasGluten "false"^^xsd:boolean ;
+                 medhin:hasLactose "false"^^xsd:boolean ;
+                 medhin:hasName "Truffle" ;
+                 medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#VerdureGrigliate
+medhin:VerdureGrigliate rdf:type owl:NamedIndividual ,
+                                   medhin:LowCaloriesMeal ,
+                                   medhin:Meal ,
+                                   medhin:NoGlutenMeal ,
+                                   medhin:NoLactoseMeal ,
+                                   medhin:VegMeal ;
+                          medhin:hasIngredients medhin:Eggplant ,
+                                                  medhin:Oil ,
+                                                  medhin:Rosemary ,
+                                                  medhin:Salt ,
+                                                  medhin:Tomato ,
+                                                  medhin:Zucchini ;
+                          medhin:MealHasGluten "false"^^xsd:boolean ;
+                          medhin:MealHasLactose "false"^^xsd:boolean ;
+                          medhin:MealIsVegetarian "true"^^xsd:boolean ;
+                          medhin:hasCalories "Low" ;
+                          medhin:hasName "Verdure grigliate" .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Water
+medhin:Water rdf:type owl:NamedIndividual ,
+                        medhin:Ingredient ,
+                        medhin:NoGlutenIngredient ,
+                        medhin:NoLactoseIngredient ,
+                        medhin:VegIngredient ;
+               medhin:isInMeal medhin:AranciniAlProsciutto ,
+                                 medhin:AranciniAlRagu ,
+                                 medhin:AranciniVegetariani ,
+                                 medhin:PizzaBoscaiola ,
+                                 medhin:PizzaMargherita ,
+                                 medhin:PizzaMelanzaneProsciutto ,
+                                 medhin:PizzaPatateBacon ,
+                                 medhin:PizzaProsciutto ,
+                                 medhin:PizzaSalmone ,
+                                 medhin:PizzaVegetariana ,
+                                 medhin:PizzaZucchineSalsiccia ;
+               medhin:hasGluten "false"^^xsd:boolean ;
+               medhin:hasLactose "false"^^xsd:boolean ;
+               medhin:hasName "Water" ;
+               medhin:isVegetarian "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/medhin.berhe/2024-2025/medhin.berhe#Zucchini
+medhin:Zucchini rdf:type owl:NamedIndividual ,
+                           medhin:Ingredient ,
+                           medhin:NoGlutenIngredient ,
+                           medhin:NoLactoseIngredient ,
+                           medhin:VegIngredient ;
+                  medhin:isInMeal medhin:PizzaVegetariana ,
+                                    medhin:PizzaZucchineSalsiccia ,
+                                    medhin:VerdureGrigliate ;
+                  medhin:hasGluten "false"^^xsd:boolean ;
+                  medhin:hasLactose "false"^^xsd:boolean ;
+                  medhin:hasName "Zucchini" ;
+                  medhin:isVegetarian "true"^^xsd:boolean .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( medhin:HighCaloriesMeal
+                medhin:LowCaloriesMeal
+                medhin:MediumCaloriesMeal
+              )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( medhin:Apple
+                        medhin:AranciniAlProsciutto
+                        medhin:AranciniAlRagu
+                        medhin:AranciniVegetariani
+                        medhin:ArrostoCarne
+                        medhin:ArrostoPesce
+                        medhin:Avocado
+                        medhin:Bacon
+                        medhin:Beef
+                        medhin:Bread
+                        medhin:Carbonara
+                        medhin:Carrot
+                        medhin:Champignon
+                        medhin:Clams
+                        medhin:Coffee
+                        medhin:Duck
+                        medhin:Egg
+                        medhin:Eggplant
+                        medhin:Flour
+                        medhin:GnocchiSugoPapera
+                        medhin:GrigliataCarne
+                        medhin:GrigliataPesce
+                        medhin:Ham
+                        medhin:Insalata
+                        medhin:InsalataRussa
+                        medhin:Ketchup
+                        medhin:Ladyfinger
+                        medhin:Lemon
+                        medhin:Lettuce
+                        medhin:Macedonia
+                        medhin:Mascarpone
+                        medhin:Mayonnaise
+                        medhin:MelanzaneRipiene
+                        medhin:Mozzarella
+                        medhin:Oil
+                        medhin:Onion
+                        medhin:Parmeasan
+                        medhin:Parmigiana
+                        medhin:Pasta
+                        medhin:PastaSalmonePomodoro
+                        medhin:PastaVongole
+                        medhin:PatateForno
+                        medhin:PatatineFritte
+                        medhin:Peach
+                        medhin:Peas
+                        medhin:Pecorino
+                        medhin:PizzaBoscaiola
+                        medhin:PizzaMargherita
+                        medhin:PizzaMelanzaneProsciutto
+                        medhin:PizzaNorcina
+                        medhin:PizzaPatateBacon
+                        medhin:PizzaProsciutto
+                        medhin:PizzaSalmone
+                        medhin:PizzaVegetariana
+                        medhin:PizzaZucchineSalsiccia
+                        medhin:Potato
+                        medhin:RavioliRagu
+                        medhin:RavioliVegetariani
+                        medhin:Rice
+                        medhin:Ricotta
+                        medhin:RisottoSalsicciaFunghi
+                        medhin:RisottoVongole
+                        medhin:Rosemary
+                        medhin:Salmon
+                        medhin:Salt
+                        medhin:Sausage
+                        medhin:ScaloppineFunghi
+                        medhin:Seabass
+                        medhin:SparklingWater
+                        medhin:Strawberry
+                        medhin:Sugar
+                        medhin:Tagliere
+                        medhin:Tartare
+                        medhin:Tiramisu
+                        medhin:Tomato
+                        medhin:TomatoSauce
+                        medhin:Truffle
+                        medhin:VerdureGrigliate
+                        medhin:Water
+                        medhin:Zucchini
+                      )
+] .
+
+
+
+#################################################################
+#    Rules for Meal Ingredient Classification
+#    Updated: 2025-06-23
+#################################################################
+
+:x rdf:type swrl:Variable .
+
+:y rdf:type swrl:Variable .
+
+:meal rdf:type swrl:Variable .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for ingredients with gluten" ;
+   rdfs:label "Gluten ingredients rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:Ingredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate cintioni:hasGluten ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:GlutenIngredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for Ingredients lactose-free" ;
+   rdfs:label "Lactose-free Ingredients rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:Ingredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate cintioni:hasLactose ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "false"^^xsd:boolean
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:NoLactoseIngredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for Ingredients with lactose" ;
+   rdfs:label "Lactose ingredients rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:Ingredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate cintioni:hasLactose ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:LactoseIngredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+#################################################################
+#    Rules by Medhin Berhe
+#    Date: 2024-2025
+#################################################################
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for non Vegetarian Ingredients" ;
+   rdfs:label "Non vegetarian Ingredient rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:Ingredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate cintioni:isVegetarian ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "false"^^xsd:boolean
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:NoVegIngredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for Vegetarian Ingredients" ;
+   rdfs:label "Vegetarian Ingredient rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:Ingredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate cintioni:isVegetarian ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:VegIngredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule to get meals with lactose" ;
+   rdfs:label "Lactose meals rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate cintioni:LactoseIngredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate medhin:isInMeal ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :y
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:LactoseMeal ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten-free non vegetarian high calories level menu" ;
+   rdfs:label "Lactose-free gluten-free non vegetarian high calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeNoVegHighMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate cintioni:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealHasGluten ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "false"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate medhin:hasCalories ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "High"
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeNoVegHighMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten-free non vegetarian low calories level menu" ;
+   rdfs:label "Lactose-free gluten-free non vegetarian low calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeNoVegLowMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealHasGluten ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "false"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate cintioni:hasCalories ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "Low"
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeNoVegLowMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten-free non vegetarian medium calories level menu" ;
+   rdfs:label "Lactose-free gluten-free non vegetarian medium calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeNoVegMediumMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealHasGluten ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "false"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate cintioni:hasCalories ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "Medium"
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeNoVegMediumMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten-free vegetarian high calories level menu" ;
+   rdfs:label "Lactose-free gluten-free vegetarian high calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeVegHighMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealHasGluten ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "false"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "true"^^xsd:boolean
+                                                                     ] ;
+                                                           rdf:rest [ rdf:type swrl:AtomList ;
+                                                                      rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                                  swrl:propertyPredicate medhin:hasCalories ;
+                                                                                  swrl:argument1 :meal ;
+                                                                                  swrl:argument2 "High"
+                                                                                ] ;
+                                                                      rdf:rest rdf:nil
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeVegHighMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten-free vegetarian low calories level menu" ;
+   rdfs:label "Lactose-free gluten-free vegetarian low calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeVegLowMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate cintioni:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealHasGluten ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "false"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "true"^^xsd:boolean
+                                                                     ] ;
+                                                           rdf:rest [ rdf:type swrl:AtomList ;
+                                                                      rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                                  swrl:propertyPredicate medhin:hasCalories ;
+                                                                                  swrl:argument1 :meal ;
+                                                                                  swrl:argument2 "Low"
+                                                                                ] ;
+                                                                      rdf:rest rdf:nil
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeVegLowMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten-free vegetarian medium calories level menu" ;
+   rdfs:label "Lactose-free gluten-free vegetarian medium calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeVegMediumMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealHasGluten ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "false"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "true"^^xsd:boolean
+                                                                     ] ;
+                                                           rdf:rest [ rdf:type swrl:AtomList ;
+                                                                      rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                                  swrl:propertyPredicate medhin:hasCalories ;
+                                                                                  swrl:argument1 :meal ;
+                                                                                  swrl:argument2 "Medium"
+                                                                                ] ;
+                                                                      rdf:rest rdf:nil
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenFreeVegMediumMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten non vegetarian high calories level menu" ;
+   rdfs:label "Lactose-free gluten non vegetarian high calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenNoVegHighMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:hasCalories ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "High"
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenNoVegHighMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten non vegetarian low calories level menu" ;
+   rdfs:label "Lactose-free gluten non vegetarian low calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenNoVegLowMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:hasCalories ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "Low"
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenNoVegLowMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten non vegetarian medium calories level menu" ;
+   rdfs:label "Lactose-free gluten non vegetarian medium calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenNoVegMediumMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:hasCalories ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "Medium"
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenNoVegMediumMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten vegetarian high calories level menu" ;
+   rdfs:label "Lactose-free gluten vegetarian high calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenVegHighMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "true"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate medhin:hasCalories ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "High"
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenVegHighMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten vegetarian low calories level menu" ;
+   rdfs:label "Lactose-free gluten vegetarian low calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenVegLowMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "true"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate medhin:hasCalories ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "Low"
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenVegLowMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose-free gluten vegetarian medium calories level menu" ;
+   rdfs:label "Lactose-free gluten vegetarian medium calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseFreeGlutenVegMediumMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasLactose ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "true"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate medhin:hasCalories ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "Medium"
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseFreeGlutenVegMediumMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten-free non vegetarian high calories level menu" ;
+   rdfs:label "Lactose gluten-free non vegetarian high calories level menu" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenFreeNoVegHighMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasGluten ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:hasCalories ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "High"
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenFreeNoVegHighMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten-free non vegetarian low calories level menu" ;
+   rdfs:label "Lactose gluten-free non vegetarian low calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenFreeNoVegLowMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasGluten ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:hasCalories ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "Low"
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenFreeNoVegLowMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten-free non vegetarian medium calories level menu" ;
+   rdfs:label "Lactose gluten-free non vegetarian medium calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenFreeNoVegMediumMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasGluten ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:hasCalories ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "Medium"
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenFreeNoVegMediumMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten-free vegetarian high calories level menu" ;
+   rdfs:label "Lactose gluten-free vegetarian high calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenFreeVegHighMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasGluten ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "true"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate medhin:hasCalories ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "High"
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenFreeVegHighMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten-free vegetarian low calories level menu" ;
+   rdfs:label "Lactose gluten-free vegetarian low calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenFreeVegLowMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasGluten ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "true"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate medhin:hasCalories ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "Low"
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenFreeVegLowMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten-free vegetarian medium calories level menu" ;
+   rdfs:label "Lactose gluten-free vegetarian medium calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenFreeVegMediumMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealHasGluten ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "true"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate medhin:hasCalories ;
+                                                                       swrl:argument1 :meal ;
+                                                                       swrl:argument2 "Medium"
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenFreeVegMediumMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten non vegetarian high calories level menu" ;
+   rdfs:label "Lactose gluten non vegetarian high calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenNoVegHighMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:hasCalories ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "High"
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenNoVegHighMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten non vegetarian low calories level menu" ;
+   rdfs:label "Lactose gluten non vegetarian low calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenNoVegLowMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:hasCalories ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "Low"
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenNoVegLowMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten non vegetarian medium calories level menu" ;
+   rdfs:label "Lactose gluten non vegetarian medium calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenNoVegMediumMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:hasCalories ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "Medium"
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenNoVegMediumMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten vegetarian high calories level menu" ;
+   rdfs:label "Lactose gluten vegetarian high calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenVegHighMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "true"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:hasCalories ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "High"
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenVegHighMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten vegetarian low calories level menu" ;
+   rdfs:label "Lactose gluten vegetarian low calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenVegLowMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "true"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:hasCalories ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "Low"
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenVegLowMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for lactose gluten vegetarian medium calories level menu" ;
+   rdfs:label "Lactose gluten vegetarian medium calories level menu rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Menu ;
+                           swrl:argument1 medhin:LactoseGlutenVegMediumMenu
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate medhin:Meal ;
+                                      swrl:argument1 :meal
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                                 swrl:argument1 :meal ;
+                                                 swrl:argument2 "true"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate medhin:hasCalories ;
+                                                            swrl:argument1 :meal ;
+                                                            swrl:argument2 "Medium"
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasMeal ;
+                           swrl:argument1 medhin:LactoseGlutenVegMediumMenu ;
+                           swrl:argument2 :meal
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule to get meals gluten-free" ;
+   rdfs:label "Gluten-free meals rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Meal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate medhin:MealHasGluten ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "false"^^xsd:boolean
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:NoGlutenMeal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule to get meals lactose-free" ;
+   rdfs:label "Lactose-free meals rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Meal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate medhin:MealHasLactose ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "false"^^xsd:boolean
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:NoLactoseMeal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule to get vegetarian meals" ;
+   rdfs:label "Vegetarian meals rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Meal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate medhin:MealIsVegetarian ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:VegMeal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for high calories meals" ;
+   rdfs:label "High calories meals rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Meal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate medhin:hasCalories ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "High"
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:HighCaloriesMeal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for low calories meals" ;
+   rdfs:label "Low calories meals rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Meal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate medhin:hasCalories ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "Low"
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:LowCaloriesMeal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for medium calories meals" ;
+   rdfs:label "Medium calories meals rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Meal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate medhin:hasCalories ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "Medium"
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:MediumCaloriesMeal ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule to get non vegetarian meals" ;
+   rdfs:label "Non vegetarian meals rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:NoVegIngredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate medhin:isInMeal ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :y
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:NoVegMeal ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Reverse rule of hasIngredient" ;
+   rdfs:label "Reverse of hasIngredient rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:hasIngredients ;
+                           swrl:argument1 :x ;
+                           swrl:argument2 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate medhin:isInMeal ;
+                           swrl:argument1 :y ;
+                           swrl:argument2 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule to get meals with gluten" ;
+   rdfs:label "Gluten meals rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:GlutenIngredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate medhin:isInMeal ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :y
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:GlutenMeal ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "Rule for gluten-free Ingredients" ;
+   rdfs:label "Gluten-free ingredients rule" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:Ingredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate medhin:hasGluten ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 "false"^^xsd:boolean
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate medhin:NoGlutenIngredient ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

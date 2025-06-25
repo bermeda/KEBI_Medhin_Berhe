@@ -1,0 +1,146 @@
+#Apply these prefixes to each query
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ex: <http://www.semanticweb.org/2024-2025//medhin-berhe#>
+
+#Query to get only the preferred meals 
+SELECT DISTINCT ?mealName WHERE {
+    BIND(false AS ?checkLactose)  # Set this to true if allergic to lactose
+    BIND(false AS ?checkGluten)   # Set this to true if allergic to gluten
+    BIND(false AS ?checkVegetarian)  # Set this to true if vegetarian 
+    BIND("Low" AS ?caloriesLevel)  # Set this to "Low", "Medium", "High" or "" if all is fine.
+
+    ?meal rdf:type ex:Meal ;
+          ex:hasName ?mealName ;
+    	  ex:MealIsVegetarian ?isVegetarian;
+          ex:MealHasGluten ?hasGluten;
+          ex:MealHasLactose ?hasLactose.
+    
+    # Lactose filter
+    FILTER (?checkLactose = false || NOT EXISTS {
+        ?meal rdf:type ex:LactoseMeal .
+    })
+    
+    # Gluten filter
+    FILTER (?checkGluten = false || NOT EXISTS {
+        ?meal rdf:type ex:GlutenMeal.
+    })
+    
+    # Vegetarian filter
+    FILTER (?checkVegetarian = false || NOT EXISTS {
+        ?meal rdf:type ex:NoVegMeal.
+    })
+    
+    # Calories filter
+    FILTER (
+        ?caloriesLevel = "" || ?caloriesLevel = "High" ||
+        (
+            (?caloriesLevel = "Low" && EXISTS { ?meal rdf:type ex:LowCaloriesMeal }) ||
+            (?caloriesLevel = "Medium" && NOT EXISTS { ?meal rdf:type ex:HighCaloriesMeal })
+        )
+    )
+
+}
+
+#Query to get all ingredients
+SELECT ?ingredient
+WHERE {
+  ?ingredient rdf:type ex:Ingredient .
+}
+
+#Query to get all ingredients with gluten
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:GlutenIngredient .
+}
+
+#Query to get all ingredients without gluten
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:NoGlutenIngredient .
+}
+
+#Query to get all ingredients with lactose
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:LactoseIngredient .
+}
+
+#Query to get all ingredients without lactose
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:NoLactoseIngredient .
+}
+
+#Query to get all vegetarian ingredients
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:VegIngredient .
+}
+
+#Query to get all non-vegetarian ingredients
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:NoVegIngredient .
+}
+
+#Query to get all meals
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:Meal .
+}
+
+#Query to get all meals with gluten
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:GlutenMeal .
+}
+
+#Query to get all gluten-free meals
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:NoGlutenMeal .
+}
+
+#Query to get all vegetarian meals
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:VegMeal .
+}
+
+#Query to get all non-vegetarian meals
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:NoVegMeal .
+}
+
+#Query to get all meals with lactose
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:LactoseMeal .
+}
+
+#Query to get all meals without lactose
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:NoLactoseMeal .
+}
+
+#Query to get all meals with low calorie level
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:LowCaloriesMeal .
+}
+
+#Query to get all meals with medium calorie level
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:MediumCaloriesMeal .
+}
+
+
+#Query to get all meals with high calorie level
+SELECT ?meal
+WHERE {
+  ?meal rdf:type ex:HighCaloriesMeal .
+}
